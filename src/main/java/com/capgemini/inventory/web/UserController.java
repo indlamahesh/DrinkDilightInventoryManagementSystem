@@ -23,35 +23,35 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
-	
-	
-	@CrossOrigin(origins = {"http://localhost:4200"})
+
+	@CrossOrigin(origins = { "http://localhost:4200" })
 	@PostMapping("/adduser")
-	public String addUser(@RequestBody User user) throws UserIdException{
+	public String addUser(@RequestBody User user) throws UserIdException {
 		try {
 			service.addUser(user);
 			return InventoryConstants.ADDED;
-		}catch(DataIntegrityViolationException ex) {
+		} catch (DataIntegrityViolationException ex) {
 			throw new UserIdException(InventoryConstants.USER_ID_ALREADY_EXISTS);
-		}		
+		}
 	}
-	
-	@CrossOrigin(origins = {"http://localhost:4200"})
+
+	@CrossOrigin(origins = { "http://localhost:4200" })
 	@GetMapping("/viewuser/{userId}")
-	public User viewUser(HttpServletRequest req,@PathVariable("userId")String userId) throws LoginException {
-		
+	public User viewUser(HttpServletRequest req, @PathVariable("userId") String userId) throws LoginException {
+
 		User user = service.viewUser(userId);
-		if((boolean)req.getAttribute("authFlag")) 
-			 return user;
-		 throw new LoginException();
+		if ((boolean) req.getAttribute("authFlag"))
+			return user;
+		throw new LoginException();
 
 	}
-	@CrossOrigin(origins = {"http://localhost:4200"})
+
+	@CrossOrigin(origins = { "http://localhost:4200" })
 	@PutMapping("/edituser")
-	public String edituser(HttpServletRequest req, @RequestBody User user) throws LoginException { 
+	public String edituser(HttpServletRequest req, @RequestBody User user) throws LoginException {
 		service.editUser(user);
-		return InventoryConstants.EDITED ;
-	
+		return InventoryConstants.EDITED;
+
 	}
-	
+
 }

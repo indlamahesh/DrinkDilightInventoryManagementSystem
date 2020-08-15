@@ -22,36 +22,34 @@ import com.capgemini.inventory.util.InventoryConstants;
 @RestController
 public class LoginRestController {
 
-	
 	@Autowired
 	private LoginService ser;
-	
+
 	@Autowired
 	@Qualifier("authenticatemap")
 	private Map<String, User> authMap;
-	
-	@CrossOrigin(origins = {"http://localhost:4200"})
-	@RequestMapping(value="/login", method =RequestMethod.POST)
-	public String getLogin(@RequestParam("userId")String userId, @RequestParam("password")String password) throws LoginException{
-	
-		try {	
-		   User user = ser.doLogin(userId, password);
+
+	@CrossOrigin(origins = { "http://localhost:4200" })
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String getLogin(@RequestParam("userId") String userId, @RequestParam("password") String password)
+			throws LoginException {
+
+		try {
+			User user = ser.doLogin(userId, password);
 			String token = ser.encryptUser(user);
 			authMap.put(token, user);
-		     return token;
-			}catch(Exception ex) { 
-			throw new LoginException(InventoryConstants.USER_NOT_AVAILABLE);}
+			return token;
+		} catch (Exception ex) {
+			throw new LoginException(InventoryConstants.USER_NOT_AVAILABLE);
+		}
 	}
-	
-	
-	
-	@CrossOrigin(origins = {"http://localhost:4200"})
+
+	@CrossOrigin(origins = { "http://localhost:4200" })
 	@GetMapping("/logout")
-	public String logout(@RequestHeader("userId")String token, HttpServletRequest req) {
+	public String logout(@RequestHeader("userId") String token, HttpServletRequest req) {
 		authMap.remove(token);
 		return InventoryConstants.LOGGED_OUT;
 
 	}
-	
-	
+
 }

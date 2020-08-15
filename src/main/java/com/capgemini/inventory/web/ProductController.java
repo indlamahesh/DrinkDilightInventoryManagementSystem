@@ -60,11 +60,10 @@ public class ProductController {
 	
 	@CrossOrigin(origins = {"http://localhost:4200"})
 	@GetMapping("/getproduct/{productid}")
-	public Product viewProductBy(HttpServletRequest req, @PathVariable("productid") long productId) throws 
+	public Product viewProductById(HttpServletRequest req, @PathVariable("productid") long productId) throws 
 	InvalidProdIdException {
-		Product product = service.viewProduct(productId);
 		 if((boolean)req.getAttribute("authFlag"))
-			 return product;
+		return service.viewProduct(productId);
 			throw new InvalidProdIdException(InventoryConstants.INVALID_PRODUCT);
 		
 				
@@ -74,9 +73,8 @@ public class ProductController {
 	@CrossOrigin(origins = {"http://localhost:4200"}) 
 	@GetMapping("/viewallproduct")
 	public List<Product> viewProducts(HttpServletRequest req) throws InvalidProdIdException{
-		if((boolean)req.getAttribute("authFlag"))
 			return service.viewAllProoducts();
-			throw new InvalidProdIdException();
+			
 		
 	}
 	
