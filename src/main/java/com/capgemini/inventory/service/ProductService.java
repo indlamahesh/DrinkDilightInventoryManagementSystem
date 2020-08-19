@@ -10,5 +10,5 @@ public interface ProductService {
 	public boolean addProduct(Product prod);
 	public boolean editProduct(Product prod);
 	public Product viewProduct(long prodId);
-	public List<Product> viewAllProoducts() throws InvalidProdIdException;
+	public List<Product> viewAllProoducts();
 }

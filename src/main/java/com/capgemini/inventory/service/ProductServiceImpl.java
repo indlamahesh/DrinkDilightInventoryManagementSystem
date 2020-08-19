@@ -40,10 +40,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> viewAllProoducts() throws InvalidProdIdException {
+	public List<Product> viewAllProoducts()  {
 		List<Product> prodlst = dao.viewProducts();
-		if(prodlst.isEmpty())
-			throw new InvalidProdIdException(InventoryConstants.INVALID_PRODUCT);
 		return prodlst;
 		
 	}

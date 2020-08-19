@@ -38,16 +38,5 @@ public class DrinkDilightApplication implements WebMvcConfigurer {
 
 	}
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
 
-		registry.addInterceptor(loginInterceptor)
-				.addPathPatterns(new String[] { "/addbooking", "/editproduct", "/viewuser/*", "/getproduct/*",
-						"/txnofvendor/*", "/viewallVendors", "/viewpdfforpurchase", "/viewpdfforsales",
-						"/viewallproduct", "/viewsalesreport", "/viewpurchasereport", "/salesreport/*",
-						"/purchasereport/*", "/purchasereportdate/*/*","/salesreportdate/*/*" });
-		registry.addInterceptor(adminInterceptor)
-				.addPathPatterns(new String[] { "/addinventorytxn", "/addproduct", });
-
-	}
 }

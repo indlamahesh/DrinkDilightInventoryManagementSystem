@@ -15,7 +15,6 @@ import com.capgemini.inventory.exceptions.InvalidProdIdException;
 import com.capgemini.inventory.exceptions.InventoryTxnException;
 import com.capgemini.inventory.service.InventoryService;
 
-
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class VendorController {

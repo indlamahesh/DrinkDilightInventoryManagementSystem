@@ -39,11 +39,7 @@ public class UserController {
 	@GetMapping("/viewuser/{userId}")
 	public User viewUser(HttpServletRequest req, @PathVariable("userId") String userId) throws LoginException {
 
-		User user = service.viewUser(userId);
-		if ((boolean) req.getAttribute("authFlag"))
-			return user;
-		throw new LoginException();
-
+		 return service.viewUser(userId);
 	}
 
 	@CrossOrigin(origins = { "http://localhost:4200" })

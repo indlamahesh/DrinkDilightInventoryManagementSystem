@@ -22,61 +22,53 @@ import com.capgemini.inventory.exceptions.LoginException;
 import com.capgemini.inventory.service.ProductService;
 import com.capgemini.inventory.util.InventoryConstants;
 
-
 @RestController
 public class ProductController {
 
 	@Autowired
 	private ProductService service;
-	
-	@CrossOrigin(origins = {"http://localhost:4200"})
+
+	@CrossOrigin(origins = { "http://localhost:4200" })
 	@PostMapping("/addproduct")
-	public InventoryMessage addProduct(@RequestBody Product product, HttpServletRequest req
-			) throws InvalidProdIdException,UserException, LoginException {
+	public InventoryMessage addProduct(@RequestBody Product product) throws InvalidProdIdException {
 
 		try {
-		if((boolean)req.getAttribute("authFlag")) {
-		service.addProduct(product);
-		InventoryMessage msg = new InventoryMessage();
-		msg.setMessage(InventoryConstants.ADDED);
-		return msg;}
-		throw new LoginException(InventoryConstants.NOT_AUTHENTICATED);
-		}catch (DataIntegrityViolationException ex) {
+
+			service.addProduct(product);
+			InventoryMessage msg = new InventoryMessage();
+			msg.setMessage(InventoryConstants.ADDED);
+			return msg;
+
+		} catch (DataIntegrityViolationException ex) {
 			throw new InvalidProdIdException(InventoryConstants.UNSUCCESFULL);
 		}
-		
+
 	}
-	
-	@CrossOrigin(origins = {"http://localhost:4200"}) 
+
+	@CrossOrigin(origins = { "http://localhost:4200" })
 	@PutMapping("/editproduct")
-	public InventoryMessage editProduct(HttpServletRequest req,  @RequestBody Product product) throws LoginException {
-		if((boolean)req.getAttribute("authFlag")) {
+	public InventoryMessage editProduct(@RequestBody Product product) throws InvalidProdIdException {
+
 		service.editProduct(product);
 		InventoryMessage msg = new InventoryMessage();
 		msg.setMessage(InventoryConstants.EDITED);
-		return msg;}
-		throw new LoginException();
+		return msg;
 	}
-	
-	@CrossOrigin(origins = {"http://localhost:4200"})
-	@GetMapping("/getproduct/{productid}")
-	public Product viewProductById(HttpServletRequest req, @PathVariable("productid") long productId) throws 
-	InvalidProdIdException {
-		 if((boolean)req.getAttribute("authFlag"))
-		return service.viewProduct(productId);
-			throw new InvalidProdIdException(InventoryConstants.INVALID_PRODUCT);
+
+	@CrossOrigin(origins = { "http://localhost:4200" })
+	@GetMapping("/getproduct/{productId}")
+	public Product viewProductById(@PathVariable("productId") long productId)
+			throws InvalidProdIdException {
+			return service.viewProduct(productId);
 		
-				
-	
+
 	}
-		
-	@CrossOrigin(origins = {"http://localhost:4200"}) 
-	@GetMapping("/viewallproduct")
-	public List<Product> viewProducts(HttpServletRequest req) throws InvalidProdIdException{
-			return service.viewAllProoducts();
-			
-		
+
+	@CrossOrigin(origins = { "http://localhost:4200" })
+	@GetMapping("/viewallproducts")
+	public List<Product> viewProducts() {
+		return service.viewAllProoducts();
+
 	}
-	
 
 }

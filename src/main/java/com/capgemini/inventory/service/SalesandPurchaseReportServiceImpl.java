@@ -32,7 +32,7 @@ public  class SalesandPurchaseReportServiceImpl implements SalesandPurchaseRepor
 		List<Product> lst = dao.viewInventory(searchStr);
 		if (lst.isEmpty())
 			throw new InvalidProdIdException(InventoryConstants.NO_PRODUCTS);
-		return null;
+		return lst;
 	}
 
 	
